@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Terrorism Visualiser</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+<body>
+    <header class="header-content">
+        <img src="stop-terrorism-logo.png" alt="Stop Terrorism Logo" id="logo">
+        <h1>Global Terrorism Visualiser</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Main</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="help.html">Help</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="map" style="height: 400px;"></div>
+        <div id="incident-list" class="incident-list">
+            <!--in app.js-->
+        </div>
+        <canvas id="chart"></canvas>
+    </main>
+    <footer>
+        <p>2024 AR&&MD</p>
+    </footer>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
