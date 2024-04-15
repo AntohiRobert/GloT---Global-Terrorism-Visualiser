@@ -100,7 +100,7 @@
         </section>
         <section id="ui-interaction">
             <h4>3.3 User Interaction and Accessibility</h4>
-            <p>Accessibility features such as high-contrast visual options are integrated to accommodate all users.</p>
+            <p>Accessibility features such as easy to use map (zoom/move across regions) and easy to use filter are integrated to accommodate all users.</p>
         </section>
     </section>
 </article>
