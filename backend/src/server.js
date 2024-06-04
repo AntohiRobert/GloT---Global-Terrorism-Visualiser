@@ -3,7 +3,7 @@ const url = require('url');
 const Incident = require('./models/incident');
 
 const hostname = 'localhost';
-const port = 3006;
+const port = 3013;
 
 const server = http.createServer((req, res) => {
     const parsedUrl = url.parse(req.url, true);
@@ -26,6 +26,22 @@ const server = http.createServer((req, res) => {
             .then(incidents => {
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify(incidents));
+            })
+            .catch(error => {
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: 'Internal Server Error' }));
+            });
+    } else if (path.startsWith('/api/incidents/') && method === 'GET') {
+        const id = path.split('/')[3]; // Extract the ID from the URL
+        Incident.getById(id)
+            .then(incident => {
+                if (incident) {
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify(incident));
+                } else {
+                    res.writeHead(404, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ error: 'Incident Not Found' }));
+                }
             })
             .catch(error => {
                 res.writeHead(500, { 'Content-Type': 'application/json' });

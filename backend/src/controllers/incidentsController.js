@@ -1,3 +1,4 @@
+/*
 const Incident = require('../models/incident');
 
 const getAllIncidents = async (req, res) => {
@@ -13,6 +14,7 @@ const getAllIncidents = async (req, res) => {
 };
 
 const getIncidentById = async (req, res, id) => {
+    console.log(id);
   try {
     const incident = await Incident.getById(id);
     if (incident) {
@@ -29,3 +31,4 @@ const getIncidentById = async (req, res, id) => {
 };
 
 module.exports = { getAllIncidents, getIncidentById };
+*/

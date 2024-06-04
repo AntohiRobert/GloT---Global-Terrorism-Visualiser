@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var incidents = [];
 
     // backend
-    fetch('http://localhost:3006/api/incidents')
+    fetch('http://localhost:3013/api/incidents')
         .then(response => response.json())
         .then(data => {
             /*

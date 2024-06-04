@@ -14,6 +14,7 @@ const getAll = () => {
 
 const getById = (id) => {
   return new Promise((resolve, reject) => {
+    console.log(id);
     db.get('SELECT * FROM incidents WHERE id = ?', [id], (err, row) => {
       if (err) {
         reject(err);
