@@ -1,0 +1,12 @@
+{
+  "name": "glot",
+  "version": "1.0.0",
+  "description": "Global Terrorism Visualizer",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "sqlite3": "^5.1.7"
+  }
+}
