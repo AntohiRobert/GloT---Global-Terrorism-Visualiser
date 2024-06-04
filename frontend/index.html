@@ -24,6 +24,11 @@
             <!--in app.js-->
         </div>
         <canvas id="chart"></canvas>
+        <div>
+            <button onclick="exportCSV()">Export CSV</button>
+            <button onclick="exportPNG()">Export PNG</button>
+            <button onclick="exportSVG()">Export SVG</button>
+        </div>
     </main>
     <footer>
         <p>2024 AR&&MD</p>
@@ -31,6 +36,7 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
