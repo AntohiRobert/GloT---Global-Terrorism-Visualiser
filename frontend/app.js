@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var incidents = [];
 
     // backend
-    fetch('http://localhost:3013/api/incidents')
+    fetch('http://localhost:3022/api/incidents')
         .then(response => response.json())
         .then(data => {
             /*
@@ -31,10 +31,10 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(data);
             data.forEach((element) => {
                 description = "An event with " + element.fatalities + " fatalities, weapon=" + element.weaponType;
-                var event = { location: element.city, date: element.date, description: description }
+                var event = { location: element.city, date: element.iyear+"-"+element.imonth+"-"+element.iday, description: description }
                 incidents.push(event);
                 var el = 1;
-                for (var i = 1; i <= element.fatalities; i++)
+                for (var i = 0; i <= element.fatalities; i++)
                     el *= 5;
                 var heatelement = [element.latitude, element.longitude, el];
                 heatPoints.push(heatelement);

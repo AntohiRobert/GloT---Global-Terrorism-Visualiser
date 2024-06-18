@@ -3,7 +3,7 @@ const url = require('url');
 const Incident = require('./models/incident');
 
 const hostname = 'localhost';
-const port = 3013;
+const port = 3022;
 
 const server = http.createServer((req, res) => {
     const parsedUrl = url.parse(req.url, true);
@@ -22,6 +22,7 @@ const server = http.createServer((req, res) => {
     }
 
     if (path === '/api/incidents' && method === 'GET') {
+        console.log("Request for all");
         Incident.getAll()
             .then(incidents => {
                 res.writeHead(200, { 'Content-Type': 'application/json' });
