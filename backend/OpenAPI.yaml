@@ -1,0 +1,91 @@
+openapi: 3.0.0
+info:
+  title: Incident API
+  description: API for managing and retrieving terrorism incidents
+  version: "1.0.0"
+servers:
+  - url: http://localhost:3022/api
+    description: Development server
+
+paths:
+  /incidents:
+    get:
+      summary: Retrieve a list of all incidents
+      description: Returns a list of all incidents stored in the database.
+      operationId: getAllIncidents
+      responses:
+        '200':
+          description: Successfully retrieved all incidents
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Incident'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /incidents/{id}:
+    get:
+      summary: Retrieve a specific incident by ID
+      description: Returns a single incident by its ID.
+      operationId: getIncidentById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Unique identifier of the incident
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the incident
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Incident'
+        '404':
+          description: Incident not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Incident:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the incident
+        date:
+          type: string
+          format: date
+          description: Date when the incident occurred
+        country:
+          type: string
+          description: Country where the incident occurred
+        description:
+          type: string
+          description: Description of the incident
+        type:
+          type: string
+          description: Type of attack
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
