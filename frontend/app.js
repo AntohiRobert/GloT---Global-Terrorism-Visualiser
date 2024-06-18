@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
             updateFilteredIncidents();
             createHeatmap();
             drawChart();
+            drawPieChart();
         })
         .catch(error => console.error('Error fetching incidents:', error));
 
@@ -58,6 +59,44 @@ document.addEventListener('DOMContentLoaded', function () {
                     y: {
                         beginAtZero: true
                     }
+                }
+            }
+        });
+    }
+
+    function drawPieChart() {
+        var regions = {};
+        incidents.forEach(incident => {
+            regions[incident.region] = (regions[incident.region] || 0) + 1;
+        });
+
+        var ctxPie = document.getElementById('piechart').getContext('2d');
+        new Chart(ctxPie, {
+            type: 'pie',
+            data: {
+                labels: Object.keys(regions),
+                datasets: [{
+                    data: Object.values(regions),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(153, 102, 255, 0.5)',
+                        'rgba(255, 159, 64, 0.5)'
+                    ],
+                    borderColor: 'rgba(255, 255, 255, 1)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'top',
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
                 }
             }
         });
@@ -130,8 +169,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var mapElement = document.getElementById('map');
     mapElement.parentNode.insertBefore(filterInput, mapElement.nextSibling);
     mapElement.parentNode.insertBefore(weaponTypeInput, filterInput.nextSibling);
-
-    // Corrected CSV Export Function
+    
+    // csv
     window.exportCSV = function() {
         var csvContent = "data:text/csv;charset=utf-8,";
         csvContent += "Date,Location,Description\n";
@@ -161,20 +200,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // svg
     window.exportSVG = function() {
-        var svgElement = document.querySelector('#map svg'); // map svg
-        if (svgElement) {
-            var serializer = new XMLSerializer();
-            var svgBlob = new Blob([serializer.serializeToString(svgElement)], {type: "image/svg+xml"});
-            var url = URL.createObjectURL(svgBlob);
-            var link = document.createElement("a");
-            link.href = url;
-            link.download = "map.svg";
-            document.body.appendChild(link); // link
-            link.click();
-            document.body.removeChild(link); // remove link
-        } else {
-            console.error('SVG Element not found!');
-        }
+    var svgContent = drawPieChartSVG(); // function
+    var blob = new Blob([svgContent], {type: "image/svg+xml;charset=utf-8"});
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement("a");
+    link.href = url;
+    link.download = "piechart.svg";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
     }
 });
