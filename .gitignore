@@ -1,0 +1,6 @@
+# Ignore all SQLite databases
+*.sqlite
+*.sqlite3
+
+# Ignore all CSV files
+*.csv
