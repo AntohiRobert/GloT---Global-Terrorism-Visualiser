@@ -130,4 +130,51 @@ document.addEventListener('DOMContentLoaded', function () {
     var mapElement = document.getElementById('map');
     mapElement.parentNode.insertBefore(filterInput, mapElement.nextSibling);
     mapElement.parentNode.insertBefore(weaponTypeInput, filterInput.nextSibling);
+
+    // Corrected CSV Export Function
+    window.exportCSV = function() {
+        var csvContent = "data:text/csv;charset=utf-8,";
+        csvContent += "Date,Location,Description\n";
+        incidents.forEach(function (incident) {
+            csvContent += `"${incident.date}","${incident.location.replace(/"/g, '""')}","${incident.description.replace(/"/g, '""')}"\n`;
+        });
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "incidents.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link); // remove
+    }
+
+    //png
+    window.exportPNG = function() {
+        var canvas = document.getElementById('chart'); // chart canvas
+        canvas.toBlob(function(blob) {
+            var url = URL.createObjectURL(blob);
+            var link = document.createElement("a");
+            link.href = url;
+            link.download = 'chart.png';
+            document.body.appendChild(link); // link
+            link.click();
+            document.body.removeChild(link); // remove link
+        });
+    }
+
+    window.exportSVG = function() {
+        var svgElement = document.querySelector('#map svg'); // map svg
+        if (svgElement) {
+            var serializer = new XMLSerializer();
+            var svgBlob = new Blob([serializer.serializeToString(svgElement)], {type: "image/svg+xml"});
+            var url = URL.createObjectURL(svgBlob);
+            var link = document.createElement("a");
+            link.href = url;
+            link.download = "map.svg";
+            document.body.appendChild(link); // link
+            link.click();
+            document.body.removeChild(link); // remove link
+        } else {
+            console.error('SVG Element not found!');
+        }
+    }
 });
